@@ -1,116 +1,309 @@
 ---
-created: 2026-07-27
-type: reference
-status: complete
-class: 4
-tags: [ostad, batch-02, workbook, principles, anti-ai-slop, student-editable]
+created: 2026-10-31
+type: working-standard
+status: active
+tags: [design-principles, anti-ai-slop, product-design, ux, accessibility, codex]
 ---
 
-# Anti-AI-Slop Rules
+# Anti-AI-Slop — Product Design Quality Checks
 
-**What this file is for:** the list of things you refuse to ship, so you catch them before a client does.
+## Purpose
 
-**Why Claude needs it:** these patterns are Claude's defaults, because they are the most common patterns on the internet it learned from. Named in the folder, it avoids them. Unnamed, it produces them and waits for you to object.
+This file identifies design and implementation patterns that should not be accepted without a clear reason. Use it alongside `design-taste.md`.
 
-**Which class:** Class 4, Claude as Critic. It runs alongside `design-taste.md` and the `/design-review` skill.
+**The standard is not “avoid anything popular” or “make everything unusual.” The standard is “every important decision must serve the user, product, context, or brand.”**
 
-**`design-taste.md` says what good is. This file says what to refuse.** Together, filled in, they are the actual answer to "Sonnet produces bad design". The complaint is nearly always a folder with nothing in it about taste, not a model that cannot design. Same model, same prompt, these two files present: different output.
+A familiar pattern can be excellent when it fits the task. A fashionable visual effect can be appropriate when it has a purpose. Reject unjustified choices—not techniques simply because AI often uses them.
 
-<!--
-COURSE NOTE for the student. This is not an instruction to Claude.
+## How to use this checklist
 
-Everything under the EXAMPLE heading is the instructor's list as of 2026. Read it, then extend it in YOUR TURN with the tells you see in your own work and your own feed.
+Apply checks during design generation, implementation, and final review. Do not mechanically ban a pattern without considering context.
 
-A rule you copied is worth less than a rule you got burned by. The copied ones still work, so keep them, but the file only becomes yours once your own entries are in it.
+### Severity levels
 
-The list is never finished. What reads as AI-slop in 2026 will read differently in 2027. Add entries as you find them. Junior designers who keep a personal anti-slop file build taste faster than the ones who do not.
--->
+- **P0 — Must fix:** Blocks task completion, creates a serious accessibility or usability barrier, misrepresents the product, risks user data or money, or makes a critical flow unsafe or unreliable.
+- **P1 — Should fix:** Creates significant confusion, inconsistency, friction, or visual noise that weakens the experience.
+- **P2 — Refinement:** A lower-impact polish issue that still has a meaningful improvement path.
 
----
+Prioritize by user impact and risk. Do not spend time polishing P2 details while P0 or P1 issues remain.
 
-## EXAMPLE: the instructor's slop list (2026)
-
-<!-- Read it, keep what applies to you, then add your own in YOUR TURN. -->
-
-Some of these apply to UI Claude generates. Some apply to icons and decoration Claude might suggest. Some apply to copy. All of them are things to refuse to ship without a reason.
-
-### Visual style slop
-
-**Purple-to-pink gradients.** The default "AI app" aesthetic. If your screen has a gradient and you cannot defend the specific colors with a brand reason, change to a single brand color or remove.
-
-**Generic "abstract tech" hero illustrations.** Floating geometric shapes, glowing orbs, low-poly heads, neural-network squiggles. If your hero needs an illustration, it should be specific to the product, not stock-AI-art that could illustrate any app.
-
-**Glassmorphism on everything.** Frosted-blur cards on every container is the 2024 equivalent of drop-shadows-on-every-button. Use it once, deliberately, where it earns its complexity.
-
-**Identical card grid.** Five cards in a 5x3 grid, each with identical heights, identical button placements, identical type weights. If everything is the same, nothing is important. Vary card size when card importance varies.
-
-**Stock-photo-energy people.** Smiling diverse team in a meeting, hands typing on a laptop, lightbulb floating above a head. Either commission real photography or do not use photos of people at all.
-
-**Random translucent dots and lines as decoration.** Particles in the background. Connector lines between concepts that mean nothing. Asymmetric "organic" shapes added for visual interest. Remove them.
-
-### Layout slop
-
-**Centered text where left-aligned would work.** Centered paragraphs are harder to read. Use center alignment only for hero text or single-line CTAs, never for body paragraphs.
-
-**Three-up feature grid as default.** "Why us" sections with three identical cards and three identical icons. Either differentiate the three, or write one paragraph and skip the grid.
-
-**Faux-3D buttons with multiple shadows.** Skeuomorphic buttons looked dated in 2018. If a button needs depth, one shadow at most. Modern buttons are flat or have a single subtle elevation.
-
-**Hero with title plus subtitle plus CTA plus secondary CTA plus signup form plus social proof plus arrow pointing down.** Pick three of those. Heroes that try to do everything do nothing.
-
-### Copy slop
-
-**"Empower."** Banned. Nobody is empowered by your dashboard. They are using it because they have to.
-
-**"Seamlessly."** If you have to say it, it isn't.
-
-**"Leverage."** Use. People use tools. They do not leverage them outside of finance.
-
-**"Robust."** Empty word. Tell me WHAT is robust about it. "Robust analytics" means nothing; "supports 50 concurrent connections" means something.
-
-**"Intuitive."** This word is a confession that you have not tested with real users. Either it is intuitive (in which case the user finds out, you do not need to say so) or it isn't.
-
-**"Delight."** When companies talk about delighting customers, they are usually annoying them. If your CTA says "delight your team," rewrite.
-
-**Three-item lists where two would do.** "Fast, reliable, and scalable." Pick the two that are actually true. Faux parallelism is an AI tell.
-
-### Component slop
-
-**Toast notifications for everything.** "Item added to cart" toast every click. "Settings saved" toast every keystroke. Toasts are interruptions; use them for things the user genuinely needs to know about, not as positive reinforcement.
-
-**Modals for things that should be a page.** If the content requires scrolling, it is not a modal. It is a page that should have a URL.
-
-**Empty states that say "No data yet" with a sad cloud.** Empty states should explain why and offer the next action. "You have not made a booking yet. Browse tutors to get started." Not just "Nothing here."
-
-**Loading spinners that show indefinitely.** If you do not know how long something will take, use a progress bar with vague stages, not a spinner. Spinners-of-unknown-duration are user-hostile.
-
-**Generic error messages.** "Something went wrong" tells the user nothing. Either tell them WHAT went wrong and what to do, or do not show the error at all.
-
-### The meta-rule
-
-The strongest anti-slop signal is **specificity**. AI defaults to generic because generic gets approval from the widest audience. Your job is to make the work specific to a real product, a real user, a real market. The more specific you are, the less it looks AI-generated.
-
-When Claude proposes something generic, ask: "What would change about this design if we knew the user is a 45-year-old auntie in Comilla checking her son's tutor at 9pm on a borrowed phone?" If nothing changes, the design is not specific enough.
+For each concern, identify the pattern, explain why it matters, propose a specific correction, and verify the correction in context.
 
 ---
 
-## YOUR TURN
+## 1. Visual sameness and decoration
 
-<!-- Answer each question in the space under it. Pull from real output, not from memory. This list only protects you if the entries are yours. -->
+### P1 — Trend-first visual styling
 
-**1. Find one output Claude gave you that you would not show a client. Name the exact tell in one sentence.** Not "it looked AI." The specific element: which gradient, which grid, which sentence.
+**Pattern:** Default purple-pink gradients, glowing orbs, abstract “AI” geometry, random particles, glass cards everywhere, or fashionable effects added without a product-specific reason.
 
+**Why it fails:** The interface looks interchangeable and decoration competes with product meaning.
 
-**2. Add three slop patterns of your own** that are not on the list above. Write the fix next to each one, not just the complaint.
+**Better response:** Start with the product's users, content, brand, and desired feeling. Keep an effect only when it strengthens identity, hierarchy, comprehension, or a meaningful interaction.
 
+**Appropriate exception:** A brand-led campaign or creative product may intentionally use expressive gradients, blur, or abstract imagery when it is coherent and usable.
 
-**3. List five words you ban in your product copy.** If your interface is Bangla and English mixed, add the Bangla equivalents you are tired of seeing.
+### P1 — Generic hero imagery
 
+**Pattern:** Stock-photo-style teams, generic laptop mockups, floating lightbulbs, abstract tech illustrations, or unrelated AI-generated scenes used to fill a hero.
 
-**4. Write your own version of the specificity test.** One sentence describing your real user, doing the real task, on their real phone. If a design does not change when you ask that question, it is not specific enough yet.
+**Why it fails:** The image could belong to almost any product and does not help the user understand the offer.
 
+**Better response:** Prefer authentic product UI, relevant real-world context, accurate product imagery, or a purposeful illustration. Check image accuracy, licensing/provenance where relevant, crop, accessibility text, and loading performance.
 
-**5. Which rule on this list do you break on purpose, and what is your defense?** A rule you can defend breaking is taste. A rule you broke without noticing is slop.
+**Appropriate exception:** Stock or abstract imagery can be suitable when it serves a clear editorial or brand purpose and is not pretending to depict actual customers or product capabilities.
 
+### P1 — Repetitive card grids
 
-<!-- COURSE SCAFFOLDING: delete everything above YOUR TURN once you have filled it in. This becomes your real working file. -->
+**Pattern:** Every section becomes three identical cards with an icon, heading, paragraph, and button; every content item has the same visual weight.
+
+**Why it fails:** Repetition replaces information architecture, obscures priority, and makes different content feel falsely equivalent.
+
+**Better response:** Choose the structure based on the content and task: lists, tables, editorial layouts, comparison views, timelines, featured items, or cards where cards genuinely help.
+
+**Appropriate exception:** Consistent grids are useful for comparable items such as products or search results. Keep the consistency when it supports scanning and comparison.
+
+### P1 — Everything is centered or equally emphasized
+
+**Pattern:** Long body copy is centered, all headings and buttons compete for attention, or every section has the same visual hierarchy.
+
+**Why it fails:** Reading becomes harder and users cannot easily identify what matters.
+
+**Better response:** Use alignment, spacing, scale, grouping, and contrast to reflect content relationships. Center alignment can be right for short hero messages or compact empty states; it is not the default for every layout.
+
+### P2 — Unnecessary visual effects
+
+**Pattern:** Multiple shadows, decorative borders, faux-3D buttons, arbitrary outlines, oversized radii, icons beside every heading, or decorative elements with no meaning.
+
+**Why it fails:** The interface accumulates visual noise and loses a clear visual system.
+
+**Better response:** Remove the effect unless it supports hierarchy, affordance, grouping, state, or brand. Use elevation and borders consistently rather than stacking them by default.
+
+### P1 — Novelty over usability
+
+**Pattern:** Unfamiliar navigation, hidden gestures, unusual controls, or custom interactions chosen mainly to make the product feel unique.
+
+**Why it fails:** Users must learn a new interaction without receiving enough value in return.
+
+**Better response:** Use established patterns when they fit. Introduce a novel pattern only when it materially improves the task, and make the behavior discoverable, accessible, and testable.
+
+---
+
+## 2. Hierarchy, content, and trust
+
+### P0 — Misleading product claims or fabricated proof
+
+**Pattern:** Invented customer quotes, testimonials, review counts, logos, awards, metrics, certifications, research findings, usability-test outcomes, or product capabilities.
+
+**Why it fails:** It damages trust and can mislead users, clients, or decision-makers.
+
+**Better response:** Use only supplied or verified claims. Label illustrative data and placeholders clearly. If evidence is missing, state what is unknown and what should be collected; never fill the gap with invented proof.
+
+### P1 — Vague marketing language
+
+**Pattern:** “Empower,” “seamlessly,” “leverage,” “robust,” “intuitive,” “revolutionary,” “delight,” or “next-generation” used instead of explaining what the product actually does.
+
+**Why it fails:** The copy sounds generic and forces users to infer the value.
+
+**Better response:** Describe the capability, action, outcome, constraint, or benefit in concrete language. These words are not automatically forbidden; use them only when precise and justified.
+
+### P1 — Placeholder content presented as final
+
+**Pattern:** Repeated lorem ipsum, generic labels, unrealistic product names, implausibly short text, or sample data that hides real layout problems.
+
+**Why it fails:** It prevents a meaningful review of hierarchy, wrapping, density, trust, and task flow.
+
+**Better response:** Use realistic content based on supplied requirements. Mark invented examples as illustrative. Test long names, missing fields, different prices, varied descriptions, and relevant edge cases.
+
+### P1 — Unnecessary copy patterns
+
+**Pattern:** Every section has exactly three bullets, every feature is described with the same sentence template, or copy repeats the heading without adding meaning.
+
+**Why it fails:** The structure feels generated rather than shaped around the information.
+
+**Better response:** Let the number and format of points follow the content. Remove repetition and say only what helps the user decide or act.
+
+### P1 — Hierarchy without a clear user purpose
+
+**Pattern:** A hero has a title, subtitle, two CTAs, signup form, social proof, badges, and multiple decorative elements all competing for attention.
+
+**Why it fails:** Users cannot easily tell what the product offers or what to do next.
+
+**Better response:** Identify the page's primary purpose and prioritize the elements that support it. Do not apply an arbitrary maximum number of elements; include secondary content when it serves a real need.
+
+---
+
+## 3. Interaction and product behavior
+
+### P0 — Dead or misleading controls
+
+**Pattern:** Buttons that do nothing, links to nowhere, controls that imply a capability that does not exist, or actions with no meaningful feedback.
+
+**Why it fails:** Users lose confidence and cannot complete the task.
+
+**Better response:** Implement the intended behavior, use a clearly disabled state when unavailable, or label the element as a non-interactive example in a prototype. Verify every visible primary action.
+
+### P0 — Unsafe destructive or financial actions
+
+**Pattern:** Deleting, purchasing, submitting, or changing important data without appropriate clarity, confirmation, validation, or recovery when the risk warrants it.
+
+**Why it fails:** Users can lose money or data through mistakes or ambiguity.
+
+**Better response:** Make the action and consequences clear, prevent accidental activation, validate inputs, provide appropriate confirmation or undo, and design recovery paths. Do not add unnecessary confirmation steps to every harmless action.
+
+### P1 — Toasts for every event
+
+**Pattern:** A toast for every click, keystroke, or minor state change.
+
+**Why it fails:** Frequent transient messages interrupt work and disappear before users can act on them.
+
+**Better response:** Use inline feedback for local changes, persistent status for important outcomes, and toasts for brief, useful notifications that do not require sustained attention. Choose the feedback pattern based on importance and context.
+
+### P1 — Modals used as default containers
+
+**Pattern:** Long, complex, navigable, or multi-step content placed in a small modal simply because it is easy to implement.
+
+**Why it fails:** It constrains space, harms orientation, and can make navigation and accessibility harder.
+
+**Better response:** Use a dedicated page or route for substantial content. Use dialogs for focused tasks that benefit from temporary interruption and preserve sensible focus management and dismissal behavior.
+
+### P1 — Unhelpful empty states
+
+**Pattern:** “No data yet,” a sad cloud illustration, or a blank screen without explanation or next steps.
+
+**Why it fails:** Users do not know whether the system is working, why there is no content, or how to proceed.
+
+**Better response:** Explain the relevant reason when known and offer a useful next action. Distinguish a genuinely empty state from loading, an error, no search results, or a permission problem.
+
+### P0 — Infinite or ambiguous loading
+
+**Pattern:** An indefinite spinner with no feedback, no timeout handling, or no recovery when a request fails.
+
+**Why it fails:** Users cannot tell whether to wait, retry, or leave.
+
+**Better response:** Show appropriate progress or status, handle delays and failures, preserve user input where possible, and provide a recovery action. Use progress percentages only when the system can support them; do not invent progress.
+
+### P0 — Generic or blameful errors
+
+**Pattern:** “Something went wrong,” raw technical exceptions, or messages that blame users without explaining what to do.
+
+**Why it fails:** Users cannot recover and may lose work.
+
+**Better response:** Explain the problem at the level that is known, tell users what they can do next, preserve their input when possible, and provide support details where useful. Do not expose secrets or sensitive technical information.
+
+### P1 — Missing interaction states
+
+**Pattern:** Only the ideal/default state is designed; focus, pressed, selected, disabled, loading, validation, success, error, and recovery states are ignored.
+
+**Why it fails:** The design is incomplete when users interact with it or the system behaves unexpectedly.
+
+**Better response:** Define the relevant states for each component and flow. Do not mechanically create every possible state when it cannot occur; cover the states that are meaningful for the product.
+
+---
+
+## 4. Accessibility and responsive quality
+
+### P0 — Accessibility barriers
+
+**Pattern:** Insufficient text contrast, color as the only status signal, missing keyboard access, invisible focus, unlabeled controls, inaccessible dialogs, or information available only through hover.
+
+**Why it fails:** Some users cannot understand or operate the product.
+
+**Better response:** Check semantic structure, keyboard navigation, visible focus, contrast, labels, error associations, target size, zoom/reflow, reduced motion, and assistive-technology behavior as appropriate. Verify with automated checks and manual testing; automated results alone are not proof of accessibility.
+
+### P1 — Desktop-only design
+
+**Pattern:** Layouts that break at narrow widths, clipped controls, horizontal overflow, tiny tap targets, or fixed dimensions that assume one viewport.
+
+**Why it fails:** Real users and real content do not match the designer's ideal screenshot.
+
+**Better response:** Check representative viewport sizes, long text, realistic content, keyboard and touch interaction, and relevant device constraints. Responsive design means preserving task quality, not merely shrinking the desktop layout.
+
+### P1 — Low-quality language and content handling
+
+**Pattern:** Hard-coded text sizes or containers that break when labels are longer, translations expand, or supported scripts render differently.
+
+**Why it fails:** Localization and real-world content expose layout and comprehension problems.
+
+**Better response:** Test the product's supported languages, font coverage, wrapping, date/number formats, and text expansion. Do not claim language support that has not been checked.
+
+---
+
+## 5. Implementation and delivery
+
+### P0 — Visual mockup mistaken for a working product
+
+**Pattern:** A polished screen is presented as complete when interactions are placeholders, data is static, routes are broken, or core behavior is missing.
+
+**Why it fails:** Visual completeness creates a false impression of functional readiness.
+
+**Better response:** State whether the output is a concept, prototype, implemented feature, or tested flow. Verify behavior separately from appearance.
+
+### P1 — Inconsistent components and tokens
+
+**Pattern:** Similar buttons, forms, spacing, colors, and states are independently invented on different screens.
+
+**Why it fails:** The product feels fragmented and becomes harder to maintain.
+
+**Better response:** Reuse shared tokens and components where the role and behavior match. Document intentional exceptions. Do not force distinct components into one abstraction merely to maximize reuse.
+
+### P0 — Unverified claims of testing
+
+**Pattern:** Saying the design is responsive, accessible, production-ready, or tested without actually checking it.
+
+**Why it fails:** Stakeholders cannot distinguish verified quality from assumption.
+
+**Better response:** Report precisely what was inspected, executed, tested, or measured. List important unverified areas and the next validation step.
+
+### P1 — Overengineering a visual idea
+
+**Pattern:** Heavy animation, complex effects, unnecessary dependencies, or elaborate code used for a minor visual benefit.
+
+**Why it fails:** It increases implementation and maintenance cost, can harm performance, and makes iteration harder.
+
+**Better response:** Prefer the simplest implementation that delivers the intended experience. Consider performance, reduced motion, maintainability, and whether the visual benefit justifies the cost.
+
+---
+
+## 6. Specificity test
+
+Ask:
+
+**What would change in this design if we knew the real user's goal, constraints, environment, and level of familiarity?**
+
+If the answer is “almost nothing,” investigate whether the design is too generic.
+
+Use known user and product details, not stereotypes. If important context is unknown, document assumptions or plan research rather than inventing a persona.
+
+---
+
+## 7. Final quality gate
+
+Before presenting work for review, check the following:
+
+- [ ] The design addresses a clear user problem or task.
+- [ ] The hierarchy reflects what users need to understand or do.
+- [ ] Visual style and imagery have a product-specific reason.
+- [ ] Copy and product claims are accurate; unknowns and placeholders are labeled.
+- [ ] Primary controls work or are clearly identified as prototype elements.
+- [ ] Relevant loading, empty, error, success, and recovery states are covered.
+- [ ] Keyboard, focus, contrast, semantics, and responsive behavior have been considered.
+- [ ] Realistic content and relevant viewport sizes have been inspected.
+- [ ] Components and design tokens are consistent where appropriate.
+- [ ] The most serious P0/P1 issues are resolved or explicitly disclosed.
+- [ ] Testing claims match the checks actually performed.
+- [ ] The next validation step is clear where uncertainty remains.
+
+## Record personal patterns over time
+
+After reviewing real work, add a new entry only when it captures a useful lesson. Record:
+1. The concrete pattern observed.
+2. The context and user impact.
+3. Why the pattern was inappropriate in that case.
+4. The correction.
+5. Any exception where the pattern could be appropriate.
+6. How the correction was or could be verified.
+
+Do not add rules merely because a style is trending or because a generated output used it. The purpose is to improve judgment, not to create a longer list of prohibitions.
+
+**Final rule:** specificity beats generic polish, but user outcomes beat novelty. Make the experience useful, truthful, accessible, coherent, and appropriate before optimizing for visual impressiveness.
